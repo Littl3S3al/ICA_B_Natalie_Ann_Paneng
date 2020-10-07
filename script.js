@@ -102,9 +102,10 @@ const main  = () => {
 
     const basicSphere = new THREE.SphereBufferGeometry( 500, 60, 40 );
     const sphereTexture = textureLoader.load('assets/background.jpg');
-    basicSphere.scale( - 1, 1, 1 );
+    basicSphere.scale( 1, 1, 1 );
     const sphereMaterial = new THREE.MeshBasicMaterial({map: sphereTexture});
     const sphere = new THREE.Mesh( basicSphere, sphereMaterial);
+    sphere.material.side = THREE.DoubleSide;
     
 
     // set up ground plane
