@@ -90,15 +90,21 @@ const main  = () => {
 
 
     // set up background
-    var geometryBackground = new THREE.SphereBufferGeometry( 500, 60, 40 );
-    // invert the geometry on the x-axis so that all of the faces point inward
-    geometryBackground.scale( - 1, 1, 1 );
+    // var geometryBackground = new THREE.SphereBufferGeometry( 500, 60, 40 );
+    // // invert the geometry on the x-axis so that all of the faces point inward
+    // geometryBackground.scale( - 1, 1, 1 );
 
-    var textureBackground = textureLoader.load( 'assets/background.jpg' );
-    var materialBackground = new THREE.MeshBasicMaterial( {map: textureBackground } );
+    // var textureBackground = textureLoader.load( 'assets/background.jpg' );
+    // var materialBackground = new THREE.MeshBasicMaterial( {map: textureBackground } );
 
-    const meshBackground = new THREE.Mesh( geometryBackground, materialBackground );
-    scene.add( meshBackground );  
+    // const meshBackground = new THREE.Mesh( geometryBackground, materialBackground );
+
+    const basicSphere = new THREE.SphereBufferGeometry( 500, 60, 40 );
+    const sphereTexture = textureLoader.load('assets/texture1.jpg');
+    basicSphere.scale( - 1, 1, 1 );
+    const sphereMaterial = new THREE.MeshPhongMaterial({color: 'rgb(255,255,255)', map: sphereTexture, shininess: 100});
+    const sphere = new THREE.Mesh( basicSphere, sphereMaterial);
+    
 
     // set up ground plane
     const groundSize = 1000;
@@ -193,6 +199,7 @@ const main  = () => {
         loadingElem.style.display = 'none';  
         scene.add(mapMesh); 
 
+        scene.add( sphere );  
 
         scene.add(sphere1);  
         objects.push(sphere1);
