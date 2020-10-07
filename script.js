@@ -90,12 +90,12 @@ const main  = () => {
 
 
     // set up background
-    var geometryBackground = new THREE.SphereBufferGeometry( 1, 60, 40 );
+    var geometryBackground = new THREE.SphereBufferGeometry( 500, 60, 40 );
     // invert the geometry on the x-axis so that all of the faces point inward
     geometryBackground.scale( - 1, 1, 1 );
 
-    var textureBackground = textureLoader.load( 'assets/background.jpeg' );
-    var materialBackground = new THREE.MeshBasicMaterial( { map: textureBackground } );
+    var textureBackground = textureLoader.load( 'assets/background.jpg' );
+    var materialBackground = new THREE.MeshBasicMaterial( {map: textureBackground } );
 
     const meshBackground = new THREE.Mesh( geometryBackground, materialBackground );
 
