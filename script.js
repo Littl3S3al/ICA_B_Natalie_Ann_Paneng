@@ -95,7 +95,7 @@ const main  = () => {
     const sphereTexture = textureLoader.load('assets/background.jpg');
     basicSphere.scale( -1, 1, 1 );
     const sphereMaterial = new THREE.MeshBasicMaterial({map: sphereTexture});
-    const sphere = new THREE.Mesh( basicSphere, sphereMaterial);
+    const environment = new THREE.Mesh( basicSphere, sphereMaterial);
     
 
     // set up ground plane
@@ -184,7 +184,7 @@ const main  = () => {
         loadingElem.style.display = 'none';  
         scene.add(mapMesh); 
 
-        scene.add( sphere );  
+        scene.add( environment );  
 
         scene.add(sphere1);  
         objects.push(sphere1);
@@ -270,6 +270,8 @@ const main  = () => {
             
 
             time *= 0.0001;
+
+            environment.rotation.y = time/4;
 
             window.addEventListener('resize', onWindowResize, false)
 
