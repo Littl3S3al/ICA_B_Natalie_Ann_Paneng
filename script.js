@@ -67,21 +67,40 @@ const main  = () => {
     controls.target.set(0, 5, 0);
     controls.update();
 
-    scene.add( new THREE.AmbientLight( 0xff00ff, 0.5 ) );
+
+    const addPointLight = (shade, intense, parent, angle, far, top, distance) => {
+        const color = shade;
+        const intensity = intense;
+        const light = new THREE.SpotLight(color, intensity);
+        light.castShadow = true;
+        light.position.set(0, top, 0);
+        light.target.position.set(-4, 0, -4);
+        light.penumbra = 1;
+        light.angle = angle;
+        light.far = far;
+        light.distance = distance;
+        parent.add(light);
+        parent.add(light.target);
+    }
+
+    addPointLight(0xff00ff, 0.8, scene, 1, 500, 50, 1000);
+
+    scene.add( new THREE.AmbientLight( 0xffffff, 0.5 ) );
+
+
+
 
     // set up background
-    {
-        var geometry = new THREE.SphereBufferGeometry( 500, 60, 40 );
-        // invert the geometry on the x-axis so that all of the faces point inward
-        geometry.scale( - 1, 1, 1 );
+    var geometry = new THREE.SphereBufferGeometry( 500, 60, 40 );
+    // invert the geometry on the x-axis so that all of the faces point inward
+    geometry.scale( - 1, 1, 1 );
 
-        var texture = new THREE.TextureLoader().load( 'assets/background.jpeg' );
-        var material = new THREE.MeshBasicMaterial( { map: texture } );
+    var texture = textureLoader.load( 'assets/background.jpeg' );
+    var material = new THREE.MeshBasicMaterial( { map: texture } );
 
-        const mesh = new THREE.Mesh( geometry, material );
+    const mesh = new THREE.Mesh( geometry, material );
 
-        scene.add( mesh );
-    }
+    
 
     // set up ground plane
     const groundSize = 1000;
@@ -95,20 +114,108 @@ const main  = () => {
     const planeGeo = new THREE.PlaneBufferGeometry(groundSize, groundSize);
     const planeMat = new THREE.MeshPhongMaterial({map: groundTexture});
     planeMat.transparent = true;
-    planeMat.alphaTest = 0.1,
-    planeMat.blending = THREE.AdditiveAlphaBlending;
+    planeMat.alphaTest = 0.1;
 
     const mapMesh = new THREE.Mesh(planeGeo, planeMat);
     mapMesh.receiveShadow = true;
     mapMesh.rotation.x = Math.PI * -.5;
-    mapMesh.position.y = 0;
+    mapMesh.position.y = -2;
+
+
+
+
+    // group of clickable objects
+    let objects = [];
+
+
+    // one
+    const basicSphere1 = new THREE.SphereBufferGeometry( 2, 32, 16 );
+    const sphere1Texture = textureLoader.load('assets/texture1.jpg');
+    const sphere1Material = new THREE.MeshPhongMaterial({map: sphere1Texture, shininess: 100});
+    const sphere1 = new THREE.Mesh( basicSphere1, sphere1Material);
+
+    // two
+    const basicSphere2 = new THREE.SphereBufferGeometry( 2, 32, 16 );
+    const sphere2Texture = textureLoader.load('assets/texture2.jpg');
+    const sphere2Material = new THREE.MeshPhongMaterial({map: sphere2Texture, shininess: 100});
+    const sphere2 = new THREE.Mesh( basicSphere2, sphere2Material);
+
+    // three
+    const basicSphere3 = new THREE.SphereBufferGeometry( 2, 32, 16 );
+    const sphere3Texture = textureLoader.load('assets/texture3.jpg');
+    const sphere3Material = new THREE.MeshPhongMaterial({map: sphere3Texture, shininess: 100});
+    const sphere3 = new THREE.Mesh( basicSphere3, sphere3Material);
+
+    // four
+    const basicSphere4 = new THREE.SphereBufferGeometry( 2, 32, 16 );
+    const basicTorus4 = new THREE.TorusBufferGeometry(2.5, 0.1, 10, 30);
+    const sphere4Texture = textureLoader.load('assets/texture4.jpg');
+    const sphere4Material = new THREE.MeshPhongMaterial({map: sphere4Texture, shininess: 100});
+    const sphere4 = new THREE.Mesh( basicSphere4, sphere4Material);
+    const torus4 = new THREE.Mesh ( basicTorus4, sphere4Material );
+    torus4.rotation.x = 45 * Math.PI/180;
+
+    // five
+    const basicSphere5 = new THREE.SphereBufferGeometry( 2, 32, 16 );
+    const sphere5Texture = textureLoader.load('assets/texture5.jpg');
+    const sphere5Material = new THREE.MeshPhongMaterial({map: sphere5Texture, shininess: 100});
+    const sphere5 = new THREE.Mesh( basicSphere5, sphere5Material);
+
+    // six
+    const basicSphere6 = new THREE.SphereBufferGeometry( 2, 32, 16 );
+    const basicTorus6 = new THREE.TorusBufferGeometry(2.5, 0.1, 10, 30);
+    const sphere6Texture = textureLoader.load('assets/texture6.jpg');
+    const sphere6Material = new THREE.MeshPhongMaterial({map: sphere6Texture, shininess: 100});
+    const sphere6 = new THREE.Mesh( basicSphere6, sphere6Material);
+    const torus6 = new THREE.Mesh ( basicTorus6, sphere6Material );
+    torus6.rotation.x = 60 * Math.PI/180;
+
+    // seven
+    const basicSphere7 = new THREE.SphereBufferGeometry( 2, 32, 16 );
+    const sphere7Texture = textureLoader.load('assets/texture7.jpg');
+    const sphere7Material = new THREE.MeshPhongMaterial({map: sphere7Texture, shininess: 100});
+    const sphere7 = new THREE.Mesh( basicSphere7, sphere7Material);
+
+    
+
+    
+
 
     
     
 
     loadManager.onLoad = () => {
         loadingElem.style.display = 'none';  
-        scene.add(mapMesh);      
+        scene.add(mapMesh);  
+        scene.add( mesh );  
+        scene.add(sphere1);  
+        objects.push(sphere1);
+
+        scene.add(sphere2);  
+        objects.push(sphere2);
+
+        scene.add(sphere3);  
+        objects.push(sphere3);
+
+        scene.add(sphere4);  
+        sphere4.add(torus4);
+        objects.push(sphere4);
+
+        scene.add(sphere5);  
+        objects.push(sphere5);
+
+        scene.add(sphere6);  
+        sphere6.add(torus6);
+        objects.push(sphere6);
+
+        scene.add(sphere7);  
+        objects.push(sphere7);
+
+        objects.forEach( object => {
+            object.position.x = Math.random() * 100;
+            object.position.y = Math.random() * 25;
+            object.position.z = Math.random() * 500;
+        })
     };
 
     loadManager.onProgress = (urlOfLastItemLoaded, itemsLoaded, itemsTotal) => {
@@ -165,16 +272,28 @@ const main  = () => {
 
     const render = (time) => {
         currentObject = undefined;
-     
-
+        var timer = 0.0002 * Date.now();
 
         if(!viewing){
             let itemSelected = false;
+            
 
             time *= 0.0001;
 
             window.addEventListener('resize', onWindowResize, false)
 
+            // move bubles randomly
+            for ( var i = 0, il = objects.length; i < il; i ++ ) {
+    
+                var sphere = objects[ i ];
+
+                sphere.position.x = 30 * Math.cos( timer + i );
+                sphere.position.y = 5 * Math.sin( timer + i * 1.1 ) + 5;
+                sphere.position.z = 30 * Math.sin( timer + i * 2 );
+                sphere.rotation.x = timer;
+                sphere.rotation.y = timer;
+
+            }
            
 
 
