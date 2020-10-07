@@ -208,12 +208,6 @@ const main  = () => {
 
         scene.add(sphere7);  
         objects.push(sphere7);
-
-        objects.forEach( object => {
-            object.position.x = Math.random() * 100;
-            object.position.y = Math.random() * 25;
-            object.position.z = Math.random() * 500;
-        })
     };
 
     loadManager.onProgress = (urlOfLastItemLoaded, itemsLoaded, itemsTotal) => {
@@ -280,11 +274,11 @@ const main  = () => {
             window.addEventListener('resize', onWindowResize, false)
 
             // move bubles randomly
-            for ( var i = 0, il = objects.length; i < il; i ++ ) {
+            for ( var i = 0; i < objects.length; i ++ ) {
     
                 var sphere = objects[ i ];
 
-                sphere.position.x = 15 * Math.cos( timer + i );
+                sphere.position.x = 15 * Math.cos( timer + i *0.5 );
                 sphere.position.y = 5 * Math.sin( timer + i * 1.1 ) + 5;
                 sphere.position.z = 15 * Math.sin( timer + i * 2 );
                 sphere.rotation.x = timer;
