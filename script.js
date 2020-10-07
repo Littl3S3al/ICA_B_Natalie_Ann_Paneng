@@ -91,21 +91,11 @@ const main  = () => {
 
 
     // set up background
-    // var geometryBackground = new THREE.SphereBufferGeometry( 500, 60, 40 );
-    // // invert the geometry on the x-axis so that all of the faces point inward
-    // geometryBackground.scale( - 1, 1, 1 );
-
-    // var textureBackground = textureLoader.load( 'assets/background.jpg' );
-    // var materialBackground = new THREE.MeshBasicMaterial( {map: textureBackground } );
-
-    // const meshBackground = new THREE.Mesh( geometryBackground, materialBackground );
-
     const basicSphere = new THREE.SphereBufferGeometry( 500, 60, 40 );
     const sphereTexture = textureLoader.load('assets/background.jpg');
-    basicSphere.scale( 1, 1, 1 );
+    basicSphere.scale( -1, 1, 1 );
     const sphereMaterial = new THREE.MeshBasicMaterial({map: sphereTexture});
     const sphere = new THREE.Mesh( basicSphere, sphereMaterial);
-    sphere.material.side = THREE.DoubleSide;
     
 
     // set up ground plane
