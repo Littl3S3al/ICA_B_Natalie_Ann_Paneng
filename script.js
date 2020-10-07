@@ -287,9 +287,9 @@ const main  = () => {
     
                 var sphere = objects[ i ];
 
-                sphere.position.x = 30 * Math.cos( timer + i );
+                sphere.position.x = 15 * Math.cos( timer + i );
                 sphere.position.y = 5 * Math.sin( timer + i * 1.1 ) + 5;
-                sphere.position.z = 30 * Math.sin( timer + i * 2 );
+                sphere.position.z = 15 * Math.sin( timer + i * 2 );
                 sphere.rotation.x = timer;
                 sphere.rotation.y = timer;
 
