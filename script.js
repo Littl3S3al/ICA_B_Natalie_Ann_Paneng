@@ -48,6 +48,7 @@ const main  = () => {
     // camera
     const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 100000 );;
     camera.position.set(0, 10, 20);
+    camera.target = new THREE.Vector3( 0, 0, 0 );
 
 
     // scene
@@ -100,9 +101,9 @@ const main  = () => {
     // const meshBackground = new THREE.Mesh( geometryBackground, materialBackground );
 
     const basicSphere = new THREE.SphereBufferGeometry( 500, 60, 40 );
-    const sphereTexture = textureLoader.load('assets/texture1.jpg');
+    const sphereTexture = textureLoader.load('assets/background.jpg');
     basicSphere.scale( - 1, 1, 1 );
-    const sphereMaterial = new THREE.MeshPhongMaterial({color: 'rgb(255,255,255)', map: sphereTexture, shininess: 100});
+    const sphereMaterial = new THREE.MeshBasicMaterial({map: sphereTexture});
     const sphere = new THREE.Mesh( basicSphere, sphereMaterial);
     
 
@@ -187,13 +188,6 @@ const main  = () => {
     const sphere7 = new THREE.Mesh( basicSphere7, sphere7Material);
     sphere7.name = '7';
 
-    
-
-    
-
-
-    
-    
 
     loadManager.onLoad = () => {
         loadingElem.style.display = 'none';  
