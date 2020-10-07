@@ -98,8 +98,7 @@ const main  = () => {
     var materialBackground = new THREE.MeshBasicMaterial( {map: textureBackground } );
 
     const meshBackground = new THREE.Mesh( geometryBackground, materialBackground );
-
-    
+    scene.add( meshBackground );  
 
     // set up ground plane
     const groundSize = 1000;
@@ -194,7 +193,6 @@ const main  = () => {
         loadingElem.style.display = 'none';  
         scene.add(mapMesh); 
 
-        scene.add( meshBackground );  
 
         scene.add(sphere1);  
         objects.push(sphere1);
