@@ -8,18 +8,18 @@ import {OrbitControls} from 'https://threejsfundamentals.org/threejs/resources/t
 const beginBtn = document.querySelector('#btn-begin');
 const overlay = document.querySelector('#overlay');
 const threeJsWindow = document.querySelector('#three-js-container');
+
+
 const popupWindow = document.querySelector('.popup-window');
+const title = popupWindow.querySelector('.top-bar span');
+const content = popupWindow.querySelector('.content');
+
+
 const closeBtn = document.querySelector('#btn-close');
+const begin2 = document.querySelector('#opening-close')
 
-
-const audios = [
-    'assets/sounds/bensound-cute.mp3',
-    'assets/sounds/bensound-hey.mp3',
-    'assets/sounds/bensound-relaxing.mp3',
-    'assets/sounds/bensound-ukulele.mp3'
-];
-const loadedAudios = [];
-
+const openingAudio = document.querySelector('#opening-audio');
+const openingLines = document.querySelector('.openingLines');
 
 // loader
 const loadingElem = document.querySelector('#loading');
@@ -131,50 +131,57 @@ const main  = () => {
     // one
     const basicSphere1 = new THREE.SphereBufferGeometry( 2, 32, 16 );
     const sphere1Texture = textureLoader.load('assets/texture1.jpg');
-    const sphere1Material = new THREE.MeshPhongMaterial({map: sphere1Texture, shininess: 100});
+    const sphere1Material = new THREE.MeshPhongMaterial({color: 'rgb(255,255,255)', map: sphere1Texture, shininess: 100});
     const sphere1 = new THREE.Mesh( basicSphere1, sphere1Material);
+    sphere1.name = '1'
 
     // two
     const basicSphere2 = new THREE.SphereBufferGeometry( 2, 32, 16 );
     const sphere2Texture = textureLoader.load('assets/texture2.jpg');
-    const sphere2Material = new THREE.MeshPhongMaterial({map: sphere2Texture, shininess: 100});
+    const sphere2Material = new THREE.MeshPhongMaterial({color: 'rgb(255,255,255)', map: sphere2Texture, shininess: 100});
     const sphere2 = new THREE.Mesh( basicSphere2, sphere2Material);
+    sphere2.name = '2';
 
     // three
     const basicSphere3 = new THREE.SphereBufferGeometry( 2, 32, 16 );
     const sphere3Texture = textureLoader.load('assets/texture3.jpg');
-    const sphere3Material = new THREE.MeshPhongMaterial({map: sphere3Texture, shininess: 100});
+    const sphere3Material = new THREE.MeshPhongMaterial({color: 'rgb(255,255,255)', map: sphere3Texture, shininess: 100});
     const sphere3 = new THREE.Mesh( basicSphere3, sphere3Material);
+    sphere3.name = '3';
 
     // four
     const basicSphere4 = new THREE.SphereBufferGeometry( 2, 32, 16 );
     const basicTorus4 = new THREE.TorusBufferGeometry(2.5, 0.1, 10, 30);
     const sphere4Texture = textureLoader.load('assets/texture4.jpg');
-    const sphere4Material = new THREE.MeshPhongMaterial({map: sphere4Texture, shininess: 100});
+    const sphere4Material = new THREE.MeshPhongMaterial({color: 'rgb(255,255,255)', map: sphere4Texture, shininess: 100});
     const sphere4 = new THREE.Mesh( basicSphere4, sphere4Material);
     const torus4 = new THREE.Mesh ( basicTorus4, sphere4Material );
     torus4.rotation.x = 45 * Math.PI/180;
+    sphere4.name = '4';
 
     // five
     const basicSphere5 = new THREE.SphereBufferGeometry( 2, 32, 16 );
     const sphere5Texture = textureLoader.load('assets/texture5.jpg');
-    const sphere5Material = new THREE.MeshPhongMaterial({map: sphere5Texture, shininess: 100});
+    const sphere5Material = new THREE.MeshPhongMaterial({color: 'rgb(255,255,255)', map: sphere5Texture, shininess: 100});
     const sphere5 = new THREE.Mesh( basicSphere5, sphere5Material);
+    sphere5.name = '5';
 
     // six
     const basicSphere6 = new THREE.SphereBufferGeometry( 2, 32, 16 );
     const basicTorus6 = new THREE.TorusBufferGeometry(2.5, 0.1, 10, 30);
     const sphere6Texture = textureLoader.load('assets/texture6.jpg');
-    const sphere6Material = new THREE.MeshPhongMaterial({map: sphere6Texture, shininess: 100});
+    const sphere6Material = new THREE.MeshPhongMaterial({color: 'rgb(255,255,255)', map: sphere6Texture, shininess: 100});
     const sphere6 = new THREE.Mesh( basicSphere6, sphere6Material);
     const torus6 = new THREE.Mesh ( basicTorus6, sphere6Material );
     torus6.rotation.x = 60 * Math.PI/180;
+    sphere6.name = '6';
 
     // seven
     const basicSphere7 = new THREE.SphereBufferGeometry( 2, 32, 16 );
     const sphere7Texture = textureLoader.load('assets/texture7.jpg');
-    const sphere7Material = new THREE.MeshPhongMaterial({map: sphere7Texture, shininess: 100});
+    const sphere7Material = new THREE.MeshPhongMaterial({color: 'rgb(255,255,255)', map: sphere7Texture, shininess: 100});
     const sphere7 = new THREE.Mesh( basicSphere7, sphere7Material);
+    sphere7.name = '7';
 
     
 
@@ -274,7 +281,6 @@ const main  = () => {
         currentObject = undefined;
         var timer = 0.0002 * Date.now();
 
-        if(!viewing){
             let itemSelected = false;
             
 
@@ -303,12 +309,20 @@ const main  = () => {
                 if(pickHelper.pickedObject.name){
                     currentObject = pickHelper.pickedObject.name;
                     itemSelected = true;
+                    console.log(currentObject);
+                    pinkColor(pickHelper.pickedObject, true);
                 }
             }
+
+            objects.forEach(object => {
+                if(!itemSelected){
+                    pinkColor(object, false);
+                }
+            })
             
             renderer.setPixelRatio( window.devicePixelRatio );
             renderer.render(scene, camera);
-        }
+
         requestAnimationFrame(render);
 
 
@@ -322,8 +336,8 @@ const main  = () => {
 
     const pinkColor = (object, blue) => {
         let g = object.material.color.g;
-        if( g < 1 && !blue){ g += 0.005 };
-        if( g > 0.5 && blue){ g -= 0.005 };
+        if( g < 1 && !blue){ g += 0.02 };
+        if( g > 0.5 && blue){ g -= 0.02 };
         object.material.color.setRGB(1, g, 1);
     }
 
@@ -389,16 +403,33 @@ const main  = () => {
 
 // event listeners
 beginBtn.addEventListener('click', () => {
-    overlay.style.display = 'none';
-    threeJsWindow.style.display = 'block';
-    main();
+    opening();
 });
 
 beginBtn.addEventListener('touchend', () => {
+    opening();
+});
+
+begin2.addEventListener('click', () => {
+    opening()
+});
+
+begin2.addEventListener('touchend', () => {
+    opening();
+});
+
+function opening() {
+    openingLines.classList.add('d-none');
+    openingAudio.classList.remove('d-none');
+    openingAudio.play();
+}
+
+openingAudio.addEventListener('ended', () => {
     overlay.style.display = 'none';
     threeJsWindow.style.display = 'block';
     main();
-});
+})
+
 
 
 // functions
@@ -408,7 +439,7 @@ window.addEventListener('mouseup', () => {
 
 const checkForClick = () => {
     if(!orbiting &&!viewing && currentObject){
-
+        {openWindow(currentObject)}
     }
 
     currentObject = undefined;
@@ -423,14 +454,55 @@ closeBtn.addEventListener('touchstart', () => {
 })
 
 function closeWindow() {
-    popupWindow.style.opacity = 0;
-    setTimeout(() => {
-        popupWindow.style.zIndex = -10;
-    }, 1200)
+    popupWindow.classList.add('d-none');
     viewing = false;
+    title.innerHTML = '';
+    content.innerHTML = '';
+    popupWindow.classList.remove('opaque');
 }
-function openWindow(){
-    popupWindow.style.opacity = 1;
-    popupWindow.style.zIndex = 100;
+function openWindow(number){
+    popupWindow.classList.remove('d-none');
+    popupWindow.classList.add('opaque');
     viewing = true;
+
+    if(number === '1'){
+        title.innerHTML = 'your light...';
+        content.innerHTML = '<img src="assets/popup1.jpg" class="w-100" alt="popup1">'
+    }
+    if(number === '2'){
+        title.innerHTML = 'hynosis...';
+        content.innerHTML = `
+        <iframe src="https://player.vimeo.com/video/20555106?autoplay=1" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+        `
+    }
+    if(number === '3'){
+        title.innerHTML = 'I am here...';
+        content.innerHTML = `
+        <audio src="assets/sounds/iamhere.mp3" controls autoplay></audio>
+        `
+    }
+    if(number === '4'){
+        title.innerHTML = 'Affirmation Station...';
+        content.innerHTML = `
+        <iframe src="https://player.vimeo.com/video/20555106?autoplay=1" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+        `
+    }
+    if(number === '5'){
+        title.innerHTML = 'Something Is Coming...';
+        content.innerHTML = `
+        <iframe src="https://player.vimeo.com/video/20555106?autoplay=1" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+        `
+    }
+    if(number === '6'){
+        title.innerHTML = 'Sound portal...';
+        content.innerHTML = `
+        <audio src="assets/sounds/iamhere.mp3" controls autoplay></audio>
+        `
+    }
+    if(number === '7'){
+        title.innerHTML = 'affirmation notification...';
+        content.innerHTML = '<img src="assets/popup2.jpg" class="w-100" alt="popup1">'
+    }
+
+
 }
