@@ -58,7 +58,6 @@ const main  = () => {
     // loaders
     const loadManager = new THREE.LoadingManager();
     const textureLoader = new THREE.TextureLoader(loadManager);
-    const cubeTextureLoader = new THREE.CubeTextureLoader(loadManager);
 
   
     
@@ -91,14 +90,14 @@ const main  = () => {
 
 
     // set up background
-    var geometry = new THREE.SphereBufferGeometry( 500, 60, 40 );
+    var geometryBackground = new THREE.SphereBufferGeometry( 500, 60, 40 );
     // invert the geometry on the x-axis so that all of the faces point inward
-    geometry.scale( - 1, 1, 1 );
+    geometryBackground.scale( - 1, 1, 1 );
 
-    var texture = textureLoader.load( 'assets/background.jpeg' );
-    var material = new THREE.MeshBasicMaterial( { map: texture } );
+    var textureBackground = textureLoader.load( 'assets/background.jpeg' );
+    var materialBackground = new THREE.MeshBasicMaterial( { map: textureBackground } );
 
-    const mesh = new THREE.Mesh( geometry, material );
+    const meshBackground = new THREE.Mesh( geometryBackground, materialBackground );
 
     
 
@@ -193,8 +192,10 @@ const main  = () => {
 
     loadManager.onLoad = () => {
         loadingElem.style.display = 'none';  
-        scene.add(mapMesh);  
-        scene.add( mesh );  
+        scene.add(mapMesh); 
+
+        scene.add( meshBackground );  
+
         scene.add(sphere1);  
         objects.push(sphere1);
 
