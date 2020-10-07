@@ -462,36 +462,39 @@ function closeWindow() {
 }
 function openWindow(number){
     popupWindow.classList.remove('d-none');
-    popupWindow.classList.add('opaque');
     viewing = true;
 
     if(number === '1'){
         title.innerHTML = 'your light...';
-        content.innerHTML = '<img src="assets/popup1.jpg" class="w-100" alt="popup1">'
+        content.innerHTML = '<img src="assets/popup1.jpg" class="w-100" alt="popup1">';
     }
     if(number === '2'){
         title.innerHTML = 'hynosis...';
         content.innerHTML = `
         <iframe src="https://player.vimeo.com/video/20555106?autoplay=1" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
-        `
+        `;
+        popupWindow.classList.add('opaque');
+
     }
     if(number === '3'){
         title.innerHTML = 'I am here...';
         content.innerHTML = `
         <audio src="assets/sounds/iamhere.mp3" controls autoplay></audio>
-        `
+        `;
     }
     if(number === '4'){
         title.innerHTML = 'Affirmation Station...';
         content.innerHTML = `
         <iframe src="https://player.vimeo.com/video/20555106?autoplay=1" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
-        `
+        `;
+        popupWindow.classList.add('opaque');
     }
     if(number === '5'){
         title.innerHTML = 'Something Is Coming...';
         content.innerHTML = `
         <iframe src="https://player.vimeo.com/video/20555106?autoplay=1" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
-        `
+        `;
+        popupWindow.classList.add('opaque');
     }
     if(number === '6'){
         title.innerHTML = 'Sound portal...';
