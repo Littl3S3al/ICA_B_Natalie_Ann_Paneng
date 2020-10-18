@@ -91,11 +91,11 @@ const main  = () => {
 
 
     // set up background
-    const basicSphere = new THREE.SphereBufferGeometry( 500, 60, 40 );
-    const sphereTexture = textureLoader.load('assets/background.jpg');
+    var basicSphere = new THREE.SphereBufferGeometry( 500, 60, 40 );
+    var sphereTexture = textureLoader.load('assets/background.jpg');
     basicSphere.scale( -1, 1, 1 );
-    const sphereMaterial = new THREE.MeshBasicMaterial({map: sphereTexture});
-    const environment = new THREE.Mesh( basicSphere, sphereMaterial);
+    var sphereMaterial = new THREE.MeshBasicMaterial({map: sphereTexture});
+    var environment = new THREE.Mesh( basicSphere, sphereMaterial);
     
 
 
@@ -110,7 +110,7 @@ const main  = () => {
     };
 
 
-    
+    console.log('changed to var')
 
     renderer.render( scene, camera );
 
