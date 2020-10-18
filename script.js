@@ -296,7 +296,6 @@ const main  = () => {
                 if(pickHelper.pickedObject.name){
                     currentObject = pickHelper.pickedObject.name;
                     itemSelected = true;
-                    console.log(currentObject);
                     pinkColor(pickHelper.pickedObject, true);
                 }
             }
