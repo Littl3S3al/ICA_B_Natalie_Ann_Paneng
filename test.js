@@ -110,7 +110,7 @@ const main  = () => {
     };
 
 
-    console.log('changed to var')
+    
 
     renderer.render( scene, camera );
 
